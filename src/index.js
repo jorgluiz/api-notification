@@ -11,7 +11,7 @@ app.post('/stripe-notifications', (req, res) => {
   const event = req.body;
 
   // Verifica se o evento é do tipo payment_intent.created
-  if (event.type === 'payment_intent.created') {
+  if (event === 'payment_intent.created') {
     const paymentIntent = event.data.object; // Objeto PaymentIntent
 
     mailer.sendMail({ // https://mailtrap.io/
