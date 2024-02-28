@@ -8,11 +8,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/stripe-notifications', (req, res) => {
-  const event = req.body;
-
-  // Verifica se o evento é do tipo payment_intent.created
-  if (event === 'payment_intent.created') {
-    const paymentIntent = event.data.object; // Objeto PaymentIntent
+  const paymentIntent = req.body.paymentIntent;
 
     mailer.sendMail({ // https://mailtrap.io/
       to: 'jorge@hotmail.com',
@@ -22,7 +18,7 @@ app.post('/stripe-notifications', (req, res) => {
     }, (err) => {
       if (err) return res.status(400).send({ error: 'error' })
     })
-  }
+
 });
 
 
